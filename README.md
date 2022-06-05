@@ -24,6 +24,39 @@ gdrive token:get # generator new token
 
 ## Usage
 
+```
+const fs = require("fs");
+const Drive = require("node-gdrive");
+
+
+console.log('Make sure to run node node_modules/node-gdrive/bin/gdrive token:get')
+
+
+var folderid = process.argv[2] || "0BzGsb5NmvVQsOTRtZEpiaEROOUk";
+if (!fs.existsSync(folderid))
+    fs.mkdirSync(folderid)
+
+Drive
+    .list(folderid)
+    .then(file => {
+        console.log("file", file);
+
+        let files = "echo Download Started for "+file.length+" files.\n"
+        let i=0;
+        file.forEach(element => {
+            files = files + `gdrive download ${element.id} -o ${folderid}/${element.name} \n echo -- ${++i}/${file.length} done\n`
+        });
+
+        fs.writeFileSync(`${folderid}.sh`, files)
+        // console.log(files)
+
+    })
+    .catch(err => {
+        console.error("err", err);
+    });
+    
+  ```
+
 ### Node project
 
 ``` js
