@@ -27,10 +27,10 @@ class Client {
       client: {
         client_id:
           process.env.GDRIVE_CLIENT_ID ||
-          "538656488600-8qnotirbp0ccjjvhuo0mmsqbft01rqgl.apps.googleusercontent.com",
-        project_id: process.env.GDRIVE_PROJECT_ID || "onecloud-media",
+          "353698034173-2iab8552p372vq7dbsv991op04v947s1.apps.googleusercontent.com",
+        project_id: process.env.GDRIVE_PROJECT_ID || "project-4608896127816769192",
         client_secret:
-          process.env.GDRIVE_CLIENT_SECRET || "3CKTtOrbTD1Q8H4A2hqvmmRp",
+          process.env.GDRIVE_CLIENT_SECRET || "MSlAaAy7v61yRj1y7F7UqQd7",
         redirect_uris: process.env.GDRIVE_REDIRECT_URIS || [
           "urn:ietf:wg:oauth:2.0:oob",
         ],
