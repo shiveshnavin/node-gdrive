@@ -18,16 +18,28 @@ class Drive extends Client {
     });
   }
 
-  list(folderId, options = {}) {
+  list(folderId, options = {},files) {
     const self = this;
     return new Promise((resolve, reject) => {
-      self.drive.files.list({
-         pageSize: 1000,
-        fields: 'nextPageToken, files(id, name)',
-      }, (err, res) => {
+      let filesAll = files || []
+      if(!options.pageSize){
+        options = {
+          q:`'${folderId}' in parents`,
+          pageSize: 1000,
+          fields: 'nextPageToken, files(id, name, size)',
+        }
+      }
+      self.drive.files.list(options, async (err, res) => {
         if (err) return console.log('The API returned an error: ' + err);
-        const files = res.data.files;
-          resolve(files);
+       
+      //  console.log(res)
+      //     console.log(res.data.nextPageToken,res.data.files.length)
+        filesAll.push(...res.data.files);
+         if(res.data.nextPageToken){
+          options.pageToken = res.data.nextPageToken
+          let resp = await self.list(folderId,options,filesAll)
+        }
+        resolve(filesAll);
       });
     });
   }
