@@ -22,7 +22,7 @@ class Drive extends Client {
     const self = this;
     return new Promise((resolve, reject) => {
       self.drive.files.list({
-         pageSize: 10000,
+         pageSize: 1000,
         fields: 'nextPageToken, files(id, name)',
       }, (err, res) => {
         if (err) return console.log('The API returned an error: ' + err);
